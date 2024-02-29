@@ -25592,7 +25592,7 @@ img.wpda-builder-logo {
     height: 48px;
     background: #6254e7;
     border-radius: 5px;
-    padding: 8px;
+    padding: 8px !important;
 }
 
 /*# sourceMappingURL=../maps/style.css.map */
