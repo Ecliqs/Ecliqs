@@ -392,20 +392,20 @@
                     <!-- appoinment satylke two left end -->
                 </div>
                 <div class="col-lg-6 col-md-10">
-                    <form action="#" class="appoinment_form-1">
+                    <form id="my-form" action="#" class="appoinment_form-1">
                         <div class="signle-input">
                             <label for="name">Full name</label>
-                            <input type="text" id="name" placeholder="Your Name">
+                            <input type="text" id="name1" name="name" placeholder="Your Name">
                             <i class="fa-regular fa-user"></i>
                         </div>
                         <div class="signle-input">
                             <label for="email">Email address</label>
-                            <input type="email" id="email" placeholder="Your email">
+                            <input type="email" id="email1" name="email" placeholder="Your email">
                             <i class="fa-light fa-envelope"></i>
                         </div>
                         <div class="signle-input">
                             <label for="website">Email address</label>
-                            <input type="url" id="website" placeholder="yourwebsite.com">
+                            <input type="url" id="website1" name="website" placeholder="yourwebsite.com">
                             <i class="fa-light fa-globe"></i>
                         </div>
                         <button class="rts-btn btn-primary-2">Start a free audit</button>
@@ -1132,7 +1132,63 @@
     <!-- contact form js -->
     <script defer src="assets/js/plugins/contact-form.js"></script>
     <script defer src="assets/js/main.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Reusable function to handle form submissions
+            const handleSubmit = function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+                const formData = new FormData(event.target);
+                const name = formData.get("name");
+                const email = formData.get("email");
+                const website = formData.get("website");
+                const page = formData.get("page");
+                const enquery_no = formData.get("enquery_no");
+                // Do something with the form data (e.g., send it to the server)
+                console.log("Name:", name);
+                console.log("Email:", email);
+                console.log("website:", website);
 
+
+
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                    Username: "socialcults@gmail.com",
+                    Password: "2257BFCFB5B0B5482B09B38FC10DA8392D06",
+                    To: "pushpendra.socialcults@gmail.com", // Replace with your own email address
+                    From: "socialcults@gmail.com", // Use the user's entered email address as the "From" address
+
+                    Subject: "Enquiry From For Mahindra Kharadi ",
+                    Body: `<div style="background:#eceff0; padding:30px; font-family:Verdana, Geneva, sans-serif; font-size:13px;">
+                  <div style="background:#fff; border:1px solid#ccc; padding:25px;">
+                  
+                  You have recived new enquiry from Social Cults For Mahindra Kharadi  <br><br>
+    
+                  Details are:<br><br>
+                  
+    
+                     <b>Name: </b>${name}<br><b>Email: </b>${email}<br><b>Website: 
+                     </b>${website}
+                     
+                    </div>`,
+                }).then(
+                    (message) => {
+                        message ? (window.location.href = "thankyou.html") : alert(message);
+                    }).catch((error) => console.log(error));
+
+                // Reset the form fields (optional)
+                event.target.reset();
+            };
+
+            // Get all forms with class "my-form"
+            const forms = document.querySelectorAll("#my-form");
+
+            // Attach event listener to each form
+            forms.forEach((form) => {
+                form.addEventListener("submit", handleSubmit);
+            });
+        });
+    </script>
 
 </body>
 
